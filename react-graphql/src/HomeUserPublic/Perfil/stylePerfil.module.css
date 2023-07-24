@@ -1,0 +1,10 @@
+.body {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.alert {
+  height: fit-content;
+  width: 80%;
+  margin: 0 auto;
+}
