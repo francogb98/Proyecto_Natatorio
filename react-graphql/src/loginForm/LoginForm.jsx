@@ -9,7 +9,7 @@ import style from "./form.module.css";
 
 import Swal from "sweetalert";
 import { barrios, barriosLaBanda, ciudades } from "./barrios";
-import Index from "./CargaDeFotoYFichaMedica";
+import Index from "./CargaDeFotoYFichaMedica/index.jsx";
 
 function LoginForm({ setToken, notifyError }) {
   const [nombre, setNombre] = useState("");
