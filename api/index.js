@@ -9,7 +9,7 @@ app.use(cors());
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (origin === procees.env.FRONTEND_URL) {
+  if (origin === process.env.FRONTEND_URL) {
     // Si el origen coincide con la URL del frontend permitida, se habilita CORS solo para ese origen
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.header(
