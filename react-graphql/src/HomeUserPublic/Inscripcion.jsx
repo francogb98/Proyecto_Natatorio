@@ -15,12 +15,12 @@ function Inscripcion() {
   const [days, setDays] = useState(["Lunes"]);
   const [hours, setHours] = useState("");
   const [activities, setActivities] = useState([]);
-  const { data, error, loading } = useQuery(ALL_HOURS, { pollInterval: 2000 });
+  const { data, error, loading } = useQuery(ALL_HOURS);
   const {
     data: activityData,
     error: activityError,
     loading: activityLoading,
-  } = useQuery(GET_ACTIVITY, { pollInterval: 2000 });
+  } = useQuery(GET_ACTIVITY);
 
   const [cargando, setLoading] = useState(false);
   const [succes, setSuccess] = useState(false);
