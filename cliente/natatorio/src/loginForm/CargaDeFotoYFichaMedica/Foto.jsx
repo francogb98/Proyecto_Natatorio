@@ -58,12 +58,9 @@ function Index({ setImageUrl, imageUrl, setPage }) {
   return (
     <div>
       <div>
-        <h2
-          htmlFor="imagen"
-          className={`text-center  mt-2 ${style.label__Text}`}
-        >
+        <h3 htmlFor="imagen" className={`text-center ${style.label__Text}`}>
           Imagen de perfil
-        </h2>
+        </h3>
 
         <input
           type="file"
@@ -76,16 +73,20 @@ function Index({ setImageUrl, imageUrl, setPage }) {
             <img
               src={previewUrl}
               alt="Imagen seleccionada"
-              className="rounded mx-auto d-block mt-3"
+              className="rounded mx-auto d-block mt-1"
               style={{ maxWidth: "250px", height: "150px" }}
             />
           </div>
         )}
-        <div className="mt-2 mx-auto" style={{ width: "fit-content" }}>
+        <div className="mt-1 mx-auto" style={{ width: "fit-content" }}>
           {loading && (
             <div className="text-center">
               <p className="text-primary">Puede tardar unos segundos</p>
-              <div className="spinner-border" role="status">
+              <div
+                className="spinner-border"
+                role="status"
+                style={{ marginTop: "-4px" }}
+              >
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
@@ -97,7 +98,7 @@ function Index({ setImageUrl, imageUrl, setPage }) {
           )}
           {success && <p className="text-primary">Imagen Update</p>}
         </div>
-        <div className="mt-3 mx-auto" style={{ width: "fit-content" }}>
+        <div className="mt-1 mx-auto" style={{ width: "fit-content" }}>
           <button
             type="button"
             className="btn btn-light fw-bold text-dark"

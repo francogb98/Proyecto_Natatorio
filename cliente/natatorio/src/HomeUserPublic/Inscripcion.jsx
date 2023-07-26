@@ -3,6 +3,7 @@ import {
   ALL_HOURS,
   GET_ACTIVITY,
   GET_ACTIVITY_FROM_HOUR,
+  GET_USER_INFO,
 } from "../persons/graphql-queries";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import style from "./styles.module.css";
@@ -62,6 +63,7 @@ function Inscripcion() {
             addUserFromActivityId: id,
           },
         });
+
         setLoading(true);
       } else {
       }
@@ -76,27 +78,24 @@ function Inscripcion() {
   }, [result.loading]);
 
   useEffect(() => {
-    if (refresh) {
+    if (!activityLoading) {
       setActivities(activityData.getActivities);
       setRefresh(false);
     }
-  }, [refresh]);
+  }, [activityLoading]);
 
   if (succes) {
     Swal({
       title: "¡Te has registrado correctamente!",
-
+      text: "redirigiendote a tu perfil en 3 segundos",
       icon: "success",
       closeOnClickOutside: false,
       closeOnEsc: false,
-      buttons: {
-        confirm: "Ok",
-      },
+      timer: 3000,
     }).then((value) => {
-      if (value) {
-        setRefresh(true);
-        setSuccess(false);
-      }
+      window.location.href = "http://localhost:5173/inscripcion/perfil";
+      setRefresh(true);
+      setSuccess(false);
     });
   }
 
@@ -121,7 +120,7 @@ function Inscripcion() {
         Salir
       </Link>
       <h1 className={style.title}>Elije tu actividad</h1>
-      {activityLoading ? (
+      {activityLoading && hours ? (
         <div>cargnado</div>
       ) : (
         <>
@@ -130,11 +129,6 @@ function Inscripcion() {
               <tr>
                 <th scope="col">Hora</th>
                 <th scope="col">Actividad</th>
-                {/* {days.map((e, i) => (
-                  <th scope="col" key={i}>
-                    {e}
-                  </th>
-                ))} */}
               </tr>
             </thead>
             <tbody>
@@ -150,91 +144,89 @@ function Inscripcion() {
                         <td key={day}>
                           {dayActivities.length > 0
                             ? dayActivities.map((activity, i) => (
-                                <>
-                                  <div
-                                    key={activity.id}
-                                    className={style.td__bg}
-                                    style={
-                                      activity.userRegister >= 50
-                                        ? {
-                                            background: "rgb(250,0,0,0.2)",
-                                          }
-                                        : null
-                                    }
-                                  >
-                                    <div>
-                                      <p>
-                                        Actividad:{" "}
-                                        <span
-                                          style={{
-                                            color: "red",
-                                            fontWeight: "550",
-                                          }}
-                                        >
-                                          {activity.name}
-                                        </span>
-                                      </p>
-                                      <p>
-                                        Dias:
-                                        <span
-                                          style={{
-                                            color: "blue",
-                                            fontWeight: "550",
-                                          }}
-                                        >
-                                          {activity.date.join(" - ")}
-                                        </span>
-                                      </p>
-                                      <p>
-                                        Pileta:
-                                        <span
-                                          style={{
-                                            color: "violet",
-                                            fontWeight: "550",
-                                          }}
-                                        >
-                                          {activity.pileta}
-                                        </span>
-                                      </p>
-                                      <p>
-                                        <span
-                                          style={
-                                            activity.userRegister >= 50
-                                              ? {
-                                                  color: "red",
-                                                  fontWeight: "550",
-                                                }
-                                              : {
-                                                  color: "green",
-                                                  fontWeight: "550",
-                                                }
-                                          }
-                                        >
-                                          {activity.userRegister >= 50
-                                            ? "No Hay cupos disponibles"
-                                            : "Disponible"}
-                                        </span>
-                                      </p>
-                                    </div>
-                                    {activity.userRegister < 50 && (
-                                      <button
-                                        className="btn btn-primary"
-                                        style={{ height: "70px" }}
-                                        disabled={activity.userRegister >= 50}
-                                        onClick={() =>
-                                          handleRegister(
-                                            activity.id,
-                                            activity.name,
-                                            activity.date.join(" - "),
-                                            activity.hourStart
-                                          )
+                                <div
+                                  key={activity.id}
+                                  className={style.td__bg}
+                                  style={
+                                    activity.userRegister >= 50
+                                      ? {
+                                          background: "rgb(250,0,0,0.2)",
+                                        }
+                                      : null
+                                  }
+                                >
+                                  <div>
+                                    <p>
+                                      Actividad:{" "}
+                                      <span
+                                        style={{
+                                          color: "red",
+                                          fontWeight: "550",
+                                        }}
+                                      >
+                                        {activity.name}
+                                      </span>
+                                    </p>
+                                    <p>
+                                      Dias:
+                                      <span
+                                        style={{
+                                          color: "blue",
+                                          fontWeight: "550",
+                                        }}
+                                      >
+                                        {activity.date.join(" - ")}
+                                      </span>
+                                    </p>
+                                    <p>
+                                      Pileta:
+                                      <span
+                                        style={{
+                                          color: "violet",
+                                          fontWeight: "550",
+                                        }}
+                                      >
+                                        {activity.pileta}
+                                      </span>
+                                    </p>
+                                    <p>
+                                      <span
+                                        style={
+                                          activity.userRegister >= 50
+                                            ? {
+                                                color: "red",
+                                                fontWeight: "550",
+                                              }
+                                            : {
+                                                color: "green",
+                                                fontWeight: "550",
+                                              }
                                         }
                                       >
-                                        Inscribirse
-                                      </button>
-                                    )}
+                                        {activity.userRegister >= 50
+                                          ? "No Hay cupos disponibles"
+                                          : "Disponible"}
+                                      </span>
+                                    </p>
                                   </div>
-                                </>
+                                  {activity.userRegister < 50 && (
+                                    <button
+                                      className="btn btn-primary"
+                                      style={{ height: "70px" }}
+                                      disabled={activity.userRegister >= 50}
+                                      onClick={() =>
+                                        handleRegister(
+                                          activity.id,
+                                          activity.name,
+                                          activity.date.join(" - "),
+                                          activity.hourStart
+                                        )
+                                      }
+                                    >
+                                      Inscribirse
+                                    </button>
+                                  )}
+                                </div>
                               ))
                             : "-"}
                         </td>
@@ -242,6 +234,7 @@ function Inscripcion() {
                     })}
                   </tr>
                 ))}
+              <tr></tr>
             </tbody>
           </table>
         </>

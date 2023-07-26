@@ -4,7 +4,6 @@ import style from "./stylePerfil.module.css";
 import { GET_USER_INFO } from "../../persons/graphql-queries";
 import { useQuery } from "@apollo/client";
 
-import img from "./asdasd.jpg";
 import { Link } from "react-router-dom";
 
 function Perfil() {
@@ -29,16 +28,16 @@ function Perfil() {
             Salir
           </Link>
           <div className={`${style.body}`}>
-            <div class="card mb-3" style={{ maxWidth: "700px" }}>
-              <div class="row g-0 align-items-center">
-                <div class=" col-4">
+            <div className="card mb-3" style={{ maxWidth: "700px" }}>
+              <div className="row g-0 align-items-center">
+                <div className=" col-4">
                   <img
                     src={data.me.foto}
                     className="card-img-top p-3"
                     alt="..."
                   />
                 </div>
-                <div class="col-4">
+                <div className="col-4">
                   <div className="card-body">
                     <h5 className="card-title">{data.me.nombre}</h5>
                     {data.me.activity[0] && (
@@ -59,7 +58,7 @@ function Perfil() {
                     )}
                   </div>
                 </div>
-                <div class="col-4">
+                <div className="col-4">
                   <img
                     src={data.me.qr}
                     alt="QR Code"
