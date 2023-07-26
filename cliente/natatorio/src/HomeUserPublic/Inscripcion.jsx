@@ -93,7 +93,8 @@ function Inscripcion() {
       closeOnEsc: false,
       timer: 3000,
     }).then((value) => {
-      window.location.href = "http://localhost:5173/inscripcion/perfil";
+      window.location.href =
+        "https://proyecto-natatorio-t39g.vercel.app/inscripcion/perfil";
       setRefresh(true);
       setSuccess(false);
     });
