@@ -104,7 +104,7 @@ function LoginForm({ setToken, notifyError }) {
       reply_to: "natatorio@correo.com",
     };
     const serviceID = import.meta.env.VITE_SERVICE_ID;
-    const templateID = import.meta.env.VITE_TEMPLATE_ID;
+    const templateID = import.meta.env.VITE_TEMPALTE_ID;
     const publicKey = import.meta.env.VITE_PUBLIK_KEY;
 
     emailjs.send(serviceID, templateID, form, publicKey).then(
