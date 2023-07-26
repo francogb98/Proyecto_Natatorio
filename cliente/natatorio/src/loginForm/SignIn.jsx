@@ -8,6 +8,8 @@ import { useApolloClient, useMutation } from "@apollo/client";
 
 import Swal from "sweetalert";
 
+import emailjs from "@emailjs/browser";
+
 function SignIn() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -58,6 +60,7 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     login({
       variables: {
         email,
@@ -90,6 +93,7 @@ function SignIn() {
           <h1 className="text-danger">Iniciar Sesion</h1>
           <form
             action=""
+            id="contact-form"
             onSubmit={handleSubmit}
             className={`${style.body__formSignIn}`}
           >
@@ -100,6 +104,7 @@ function SignIn() {
               </label>
               <input
                 type="email"
+                name="email"
                 className={`form-control `}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="usuario@correo.com..."
