@@ -122,7 +122,7 @@ function Index({ setImageUrl, imageUrl, setPage }) {
           Anterior
         </button>
         <button
-          className="btn btn-primary "
+          className={`btn ${imageUrl ? "btn-primary" : "btn-secondary"} `}
           disabled={!imageUrl}
           onClick={() => setPage(2)}
         >

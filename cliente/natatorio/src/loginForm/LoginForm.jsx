@@ -264,8 +264,15 @@ function LoginForm({ setToken, notifyError }) {
                   id="edad"
                   name="edad"
                   value={edad}
-                  onChange={(e) => setEdad(e.target.value)}
+                  onChange={(e) => {
+                    const newEdad = e.target.value;
+
+                    if (newEdad.length <= 2) {
+                      setEdad(newEdad);
+                    }
+                  }}
                 />
+
                 <label
                   htmlFor="dni"
                   className={`form-label  mt-2 ${style.label__Text}`}
@@ -277,7 +284,13 @@ function LoginForm({ setToken, notifyError }) {
                   className="form-control"
                   value={dni}
                   id="dni"
-                  onChange={(e) => setDni(e.target.value)}
+                  onChange={(e) => {
+                    const newDni = e.target.value;
+
+                    if (newDni.length <= 8) {
+                      setDni(newDni);
+                    }
+                  }}
                 />
 
                 <div className="d-flex justify-content-center mt-4">
@@ -376,7 +389,7 @@ function LoginForm({ setToken, notifyError }) {
                         htmlFor="nombreTutor"
                         className={`form-label  mt-2 ${style.label__Text}`}
                       >
-                        Nombre Del Tutor
+                        Nombre Completo Del Tutor
                       </label>
                       <input
                         type="text"
@@ -397,7 +410,13 @@ function LoginForm({ setToken, notifyError }) {
                         className="form-control"
                         value={dniTutor}
                         id="dniTutor"
-                        onChange={(e) => setDniTutor(e.target.value)}
+                        onChange={(e) => {
+                          const newDni = e.target.value;
+
+                          if (newDni.length <= 8) {
+                            setDniTutor(newDni);
+                          }
+                        }}
                       />
                     </>
                   )}
@@ -500,6 +519,17 @@ function LoginForm({ setToken, notifyError }) {
                     id="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <ul
+                    style={{
+                      height: "50px",
+                      fontSize: "14px",
+                      marginTop: "2px",
+                    }}
+                  >
+                    <li>Debe tener al menos un numero.</li>
+                    <li>Debe tener al menos una letra minuscula.</li>
+                    <li>Debe tener al menos una letra mayuscula.</li>
+                  </ul>
 
                   <label
                     htmlFor="repetirPassword"
