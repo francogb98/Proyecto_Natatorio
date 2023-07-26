@@ -57,7 +57,7 @@ function Confirm() {
       closeOnEsc: false,
     }).then(() => {
       // Aquí puedes realizar la redirección
-      window.location.href = "http://localhost:5173/";
+      window.location.href = "https://proyecto-natatorio-t39g.vercel.app/";
     });
   }
 
