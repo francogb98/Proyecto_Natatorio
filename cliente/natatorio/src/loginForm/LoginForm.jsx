@@ -19,11 +19,11 @@ function LoginForm({ setToken, notifyError }) {
 
   const [imageUrl, setImageUrl] = useState("");
 
-  const [edad, setEdad] = useState();
+  const [edad, setEdad] = useState("");
   const [telefono, setTelefono] = useState("");
   const [telefonoContacto, setTelefonoContacto] = useState("");
-  const [nombreTutor, setNombreTutor] = useState(null);
-  const [dniTutor, setDniTutor] = useState(null);
+  const [nombreTutor, setNombreTutor] = useState(undefined);
+  const [dniTutor, setDniTutor] = useState(undefined);
 
   const [ciudad, setCiudad] = useState("");
   const [email, setEmail] = useState("");
@@ -89,9 +89,7 @@ function LoginForm({ setToken, notifyError }) {
 
   useEffect(() => {
     if (result.data && loading) {
-      console.log(result.data);
       setSuccess(true);
-      setLoading(false);
     }
   }, [result.data]);
 
@@ -120,6 +118,7 @@ function LoginForm({ setToken, notifyError }) {
           },
         }).then((value) => {
           if (value) {
+            setLoading(false);
             setSuccess(false);
             setNombre("");
             setApellido("");
@@ -133,7 +132,17 @@ function LoginForm({ setToken, notifyError }) {
         });
       },
       (error) => {
-        console.log(error.text);
+        Swal({
+          title: "¡¡Ups algo salio mal!!",
+          text: error.text,
+          icon: "error",
+          closeOnClickOutside: false,
+          closeOnEsc: false,
+          buttons: {
+            confirm: "Ok",
+          },
+        });
+        setLoading(false);
       }
     );
   }
