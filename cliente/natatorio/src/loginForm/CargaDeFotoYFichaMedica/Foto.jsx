@@ -83,8 +83,11 @@ function Index({ setImageUrl, imageUrl, setPage }) {
         )}
         <div className="mt-2 mx-auto" style={{ width: "fit-content" }}>
           {loading && (
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
+            <div className="text-center">
+              <p className="text-primary">Puede tardar unos segundos</p>
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
             </div>
           )}
           {error && (
@@ -92,7 +95,7 @@ function Index({ setImageUrl, imageUrl, setPage }) {
               Ocurrio un error, recargue y vuelva a intentarlo
             </p>
           )}
-          {success && <p className="text-success">Imagen Update</p>}
+          {success && <p className="text-primary">Imagen Update</p>}
         </div>
         <div className="mt-3 mx-auto" style={{ width: "fit-content" }}>
           <button
@@ -106,7 +109,10 @@ function Index({ setImageUrl, imageUrl, setPage }) {
         </div>
       </div>
       {!imageUrl && (
-        <p className="mx-auto text-light mt-2" style={{ width: "fit-content" }}>
+        <p
+          className="mx-auto text-danger mt-2"
+          style={{ width: "fit-content" }}
+        >
           Cargue una imagen para continuar
         </p>
       )}

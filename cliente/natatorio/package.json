@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
+    "@emailjs/browser": "^3.11.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "cloudinary-react": "^1.8.1",
+    "dotenv": "^16.3.1",
+    "dotenv-expand": "^10.0.0",
     "graphql": "^16.7.1",
     "path-to-regexp": "^6.2.1",
     "react": "^18.2.0",

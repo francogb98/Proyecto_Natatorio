@@ -11,6 +11,8 @@ import Swal from "sweetalert";
 import { barrios, barriosLaBanda, ciudades } from "./barrios";
 import Index from "./CargaDeFotoYFichaMedica/Foto.jsx";
 
+import emailjs from "@emailjs/browser";
+
 function LoginForm({ setToken, notifyError }) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -87,34 +89,57 @@ function LoginForm({ setToken, notifyError }) {
 
   useEffect(() => {
     if (result.data && loading) {
+      console.log(result.data);
       setSuccess(true);
       setLoading(false);
     }
   }, [result.data]);
 
   if (succes) {
-    Swal({
-      title: "¡Cuenta Creada correctamente!",
-      text: "Te hemos enviado un correo para verificar tu cuenta",
-      icon: "success",
-      closeOnClickOutside: false,
-      closeOnEsc: false,
-      buttons: {
-        confirm: "Ok",
-      },
-    }).then((value) => {
-      if (value) {
-        setSuccess(false);
-        setNombre("");
-        setApellido("");
-        setEmail("");
-        setPassword("");
-        setRepetirPassword("");
-        setDni("");
-        setSexo("");
-        setBarrio("");
-      }
-    });
+    const form = {
+      from_name: "Administracion Natatorio Olimpico",
+      to_name: nombre.concat(" ", apellido),
+      from_email: email,
+      enlace: `https://proyecto-natatorio-t39g.vercel.app/verificar-cuenta?token=${result.data.createUser.emailVerificationToken}`,
+      reply_to: "natatorio@correo.com",
+    };
+
+    emailjs
+      .send(
+        import.meta.env.VITE_SERVICE_ID,
+        import.meta.env.VITE_TEMPLATE_ID,
+        form,
+        import.meta.env.VITE_PUBLIK_KEY
+      )
+      .then(
+        (result) => {
+          Swal({
+            title: "¡Cuenta Creada correctamente!",
+            text: "Te hemos enviado un correo para verificar tu cuenta",
+            icon: "success",
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+            buttons: {
+              confirm: "Ok",
+            },
+          }).then((value) => {
+            if (value) {
+              setSuccess(false);
+              setNombre("");
+              setApellido("");
+              setEmail("");
+              setPassword("");
+              setRepetirPassword("");
+              setDni("");
+              setSexo("");
+              setBarrio("");
+            }
+          });
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   }
 
   const handleSubmit = (event) => {
@@ -232,6 +257,7 @@ function LoginForm({ setToken, notifyError }) {
                   type="text"
                   className="form-control"
                   id="edad"
+                  name="edad"
                   value={edad}
                   onChange={(e) => setEdad(e.target.value)}
                 />
