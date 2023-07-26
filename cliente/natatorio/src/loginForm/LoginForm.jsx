@@ -103,43 +103,39 @@ function LoginForm({ setToken, notifyError }) {
       enlace: `https://proyecto-natatorio-t39g.vercel.app/verificar-cuenta?token=${result.data.createUser.emailVerificationToken}`,
       reply_to: "natatorio@correo.com",
     };
+    const serviceID = import.meta.env.VITE_SERVICE_ID;
+    const templateID = import.meta.env.VITE_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_PUBLIK_KEY;
 
-    emailjs
-      .send(
-        import.meta.env.VITE_SERVICE_ID,
-        import.meta.env.VITE_TEMPLATE_ID,
-        form,
-        import.meta.env.VITE_PUBLIK_KEY
-      )
-      .then(
-        (result) => {
-          Swal({
-            title: "¡Cuenta Creada correctamente!",
-            text: "Te hemos enviado un correo para verificar tu cuenta",
-            icon: "success",
-            closeOnClickOutside: false,
-            closeOnEsc: false,
-            buttons: {
-              confirm: "Ok",
-            },
-          }).then((value) => {
-            if (value) {
-              setSuccess(false);
-              setNombre("");
-              setApellido("");
-              setEmail("");
-              setPassword("");
-              setRepetirPassword("");
-              setDni("");
-              setSexo("");
-              setBarrio("");
-            }
-          });
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    emailjs.send(serviceID, templateID, form, publicKey).then(
+      (result) => {
+        Swal({
+          title: "¡Cuenta Creada correctamente!",
+          text: "Te hemos enviado un correo para verificar tu cuenta",
+          icon: "success",
+          closeOnClickOutside: false,
+          closeOnEsc: false,
+          buttons: {
+            confirm: "Ok",
+          },
+        }).then((value) => {
+          if (value) {
+            setSuccess(false);
+            setNombre("");
+            setApellido("");
+            setEmail("");
+            setPassword("");
+            setRepetirPassword("");
+            setDni("");
+            setSexo("");
+            setBarrio("");
+          }
+        });
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
   }
 
   const handleSubmit = (event) => {
